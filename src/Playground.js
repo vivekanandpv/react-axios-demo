@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+import httpHandler from './HttpHandler';
+import { API_URL } from './StaticProviders';
 
 const Playground = () => {
   const [getMessage, setGetMessage] = useState();
@@ -8,26 +9,9 @@ const Playground = () => {
   const [patchMessage, setPatchMessage] = useState();
   const [deleteMessage, setDeleteMessage] = useState();
 
-  const httpHandler = async (url, method, data) => {
-    try {
-      let result = await axios({
-        method,
-        url,
-        data,
-        headers: { 'X-Custom-Header': 'X-Header-Value' }
-      });
-
-      console.log('Http Result', result);
-      return result.data.message;
-    } catch (error) {
-      console.log('Http Error', error);
-      return 'Call failed';
-    }
-  };
-
   const postHandler = async () => {
     setPostMessage(
-      await httpHandler('http://localhost:3000/api/items', 'POST', {
+      await httpHandler(API_URL, 'POST', {
         name: 'Vivek'
       })
     );
@@ -35,7 +19,7 @@ const Playground = () => {
 
   const putHandler = async () => {
     setPutMessage(
-      await httpHandler('http://localhost:3000/api/items', 'PUT', {
+      await httpHandler(API_URL, 'PUT', {
         name: 'Vivek'
       })
     );
@@ -43,20 +27,18 @@ const Playground = () => {
 
   const patchHandler = async () => {
     setPatchMessage(
-      await httpHandler('http://localhost:3000/api/items', 'PATCH', {
+      await httpHandler(API_URL, 'PATCH', {
         name: 'Vivek'
       })
     );
   };
 
   const getHandler = async () => {
-    setGetMessage(await httpHandler('http://localhost:3000/api/items', 'GET'));
+    setGetMessage(await httpHandler(API_URL, 'GET'));
   };
 
   const deleteHandler = async () => {
-    setDeleteMessage(
-      await httpHandler('http://localhost:3000/api/items/1', 'DELETE')
-    );
+    setDeleteMessage(await httpHandler(`${API_URL}/1`, 'DELETE'));
   };
 
   return (
