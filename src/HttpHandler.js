@@ -6,11 +6,11 @@ const httpHandler = async (url, method, data) => {
       method,
       url,
       data,
-      headers: { 'X-Custom-Header': 'X-Header-Value' }
+      headers: { 'X-Custom-Header': 'X-Header-Value' },
     });
 
     console.log('Http Result', result);
-    return result.data.message;
+    return result.status;
   } catch (error) {
     console.log('Http Error', error);
     return 'Call failed';
