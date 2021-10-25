@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import httpHandler from './HttpHandler';
-import { API_URL } from './StaticProviders';
+import { httpService } from './http-service';
 
 const Playground = () => {
   const [getMessage, setGetMessage] = useState();
@@ -10,35 +9,51 @@ const Playground = () => {
   const [deleteMessage, setDeleteMessage] = useState();
 
   const postHandler = async () => {
-    setPostMessage(
-      await httpHandler(API_URL, 'POST', {
-        name: 'Vivek'
-      })
-    );
+    try {
+      const response = await httpService.post('users', { data: 'some body' });
+      setPostMessage('POST successful');
+    } catch (e) {
+      console.log('Oops! Error occurred', e.message);
+    }
   };
 
   const putHandler = async () => {
-    setPutMessage(
-      await httpHandler(API_URL, 'PUT', {
-        name: 'Vivek'
-      })
-    );
+    try {
+      const response = await httpService.put('users/2', { data: 'some body' });
+      setPutMessage('PUT successful');
+    } catch (e) {
+      console.log('Oops! Error occurred', e.message);
+    }
   };
 
   const patchHandler = async () => {
-    setPatchMessage(
-      await httpHandler(API_URL, 'PATCH', {
-        name: 'Vivek'
-      })
-    );
+    try {
+      const response = await httpService.patch('users/2', {
+        data: 'some body',
+      });
+      setPatchMessage('PATCH successful');
+    } catch (e) {
+      console.log('Oops! Error occurred', e.message);
+    }
   };
 
   const getHandler = async () => {
-    setGetMessage(await httpHandler(API_URL, 'GET'));
+    try {
+      const response = await httpService.get('users');
+      console.log('GET Response', response.data.data);
+      setGetMessage('GET successful');
+    } catch (e) {
+      console.log('Oops! Error occurred', e.message);
+    }
   };
 
   const deleteHandler = async () => {
-    setDeleteMessage(await httpHandler(`${API_URL}/1`, 'DELETE'));
+    try {
+      const response = await httpService.delete('users/2');
+      setDeleteMessage('DELETE successful');
+    } catch (e) {
+      console.log('Oops! Error occurred', e.message);
+    }
   };
 
   return (
