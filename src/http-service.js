@@ -1,4 +1,3 @@
-import { configure } from '@testing-library/dom';
 import axios from 'axios';
 
 export const httpService = axios.create({
