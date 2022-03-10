@@ -35,7 +35,7 @@ httpService.interceptors.response.use(
   (err) => {
     //  axios-http.com/docs/handling_errors
     //  do something
-    https: console.log('Response interceptor: Error', err);
+    console.log('Response interceptor: Error', err);
 
     return Promise.reject(err);
   }
