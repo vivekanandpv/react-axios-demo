@@ -12,23 +12,23 @@ const Playground = () => {
   const postHandler = async () => {
     setPostMessage(
       await httpHandler(API_URL, 'POST', {
-        name: 'Vivek'
+        name: 'Vivek',
       })
     );
   };
 
   const putHandler = async () => {
     setPutMessage(
-      await httpHandler(API_URL, 'PUT', {
-        name: 'Vivek'
+      await httpHandler(`${API_URL}/1`, 'PUT', {
+        name: 'Vivek',
       })
     );
   };
 
   const patchHandler = async () => {
     setPatchMessage(
-      await httpHandler(API_URL, 'PATCH', {
-        name: 'Vivek'
+      await httpHandler(`${API_URL}/1`, 'PATCH', {
+        name: 'Vivek',
       })
     );
   };
